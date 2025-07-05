@@ -19,7 +19,7 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Task</li>
-							<li class="breadcrumb-item " aria-current="page">Index</li>
+							<li class="breadcrumb-item " aria-current="page">Edit</li>
 						</ol>
 					</nav>
 				</div>
@@ -89,7 +89,7 @@
 					</div>
 
 					<button class="btn btn-primary" type="submit">Update Task</button>
-					<a href="{{ route('task.index') }}" class="btn btn-danger">back</a>
+					<a href="{{ route('task.index') }}" class="btn btn-secondary">Back to list</a>
 				</form>
 			</div>
 

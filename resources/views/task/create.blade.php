@@ -19,7 +19,7 @@
 						<ol class="breadcrumb">
 							<li class="breadcrumb-item"><a href="/">Dashboard</a></li>
 							<li class="breadcrumb-item active" aria-current="page">Task</li>
-							<li class="breadcrumb-item " aria-current="page">Index</li>
+							<li class="breadcrumb-item " aria-current="page">New</li>
 						</ol>
 					</nav>
 				</div>
@@ -29,6 +29,8 @@
 			<div class="card">
 				<form action="{{ route('task.store') }}" method="post" class="card-body">
 					@csrf
+
+					{{-- Title --}}
 					<div class="mb-2">
 						<label for="title" class="form-label">Title</label>
 						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{ old('title') }}" name="title" id="title" required>
@@ -36,6 +38,8 @@
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
 					</div>
+
+					{{-- Employee --}}
 					<div class="mb-2">
 						<label for="status" class="form-label">Employee</label>
 						<select name="assigned_to" class="form-control text-gray-600 @error('assigned_to') is-invalid @enderror" id="assigned_to">
@@ -48,6 +52,8 @@
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
 					</div>
+
+					{{-- Due Date --}}
 					<div class="mb-2">
 						<label for="due_date" class="form-label">Due Date</label>
 						<input type="datetime-local" value="{{ old('due_date') }}" class="form-control @error('due_date') is-invalid @enderror date" name="due_date" id="due_date" required>
@@ -55,6 +61,8 @@
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
 					</div>
+
+					{{-- Status --}}
 					<div class="mb-2">
 						<label for="status" class="form-label">Status</label>
 						<select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
@@ -66,6 +74,8 @@
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
 					</div>
+
+					{{-- Description --}}
 					<div class="mb-2">
 						<label for="description" class="form-label">Description</label>
 						<textarea class="form-control @error('description') is-invalid @enderror" name="description" id="description" required>{{ old('description') }}</textarea>
@@ -75,7 +85,7 @@
 					</div>
 
 					<button class="btn btn-primary" type="submit">Create Task</button>
-					<a href="{{ route('task.index') }}" class="btn btn-danger">back</a>
+					<a href="{{ route('task.index') }}" class="btn btn-secondary">Back to list</a>
 				</form>
 			</div>
 

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class TaskController extends Controller
 {
@@ -62,4 +64,38 @@ class TaskController extends Controller
 		$task->update($request->all());
 		return redirect()->route('task.index')->with('success', 'Task updated successfully');
 	}
+	
+	public function show(Task $task)
+	{
+		$dueDate = Carbon::parse($task->due_date)->format('d F Y');
+		return view('task.show', compact('task', 'dueDate'));
+	}
+
+	public function destroy(Task $task)
+	{
+		$task->delete();
+		return redirect()->route('task.index')->with('success', 'Task deleted successfully');
+	}
+
+	public function done(Task $task)
+	{
+		$task->status = 'done';
+		$task->save();
+		return redirect()->route('task.index')->with('success', 'Task marked as done');
+	}
+
+	public function pending(Task $task)
+	{
+		$task->status = 'pending';
+		$task->save();
+		return redirect()->route('task.index')->with('success', 'Task marked as done');
+	}
+
+	public function onProgress(Task $task)
+	{
+		$task->status = 'onProgress';
+		$task->save();
+		return redirect()->route('task.index')->with('success', 'Task marked as done');
+	}
+
 }

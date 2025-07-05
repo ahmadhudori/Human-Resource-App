@@ -61,18 +61,28 @@
 									@elseif ($task->status == 'done')
 										<span class="text-success">Done</span>
 									@else
-										<span class="text-danger">On Progress</span>
+										<span class="text-primary">On Progress</span>
 									@endif
 								</td>
 								<td>
-									<a href="" class="btn btn-info btn-sm">View</a>
+									<a href="{{ route('task.show', $task) }}" class="btn btn-info btn-sm">View</a>
 									@if ($task->status == 'pending')
-										<a href="" class="btn btn-success btn-sm">Mark as Done</a>
+									<a href="{{ route('task.onProgress', $task) }}" class="btn btn-primary btn-sm">On Progress</a>
+									<a href="{{ route('task.done', $task) }}" class="btn btn-success btn-sm">Done</a>
+									@elseif ($task->status == 'done')
+									<a href="{{ route('task.pending', $task) }}" class="btn btn-warning btn-sm">Pending</a>
+									<a href="{{ route('task.onProgress', $task) }}" class="btn btn-primary btn-sm">On Progress</a>
 									@else
-										<a href="" class="btn btn-warning btn-sm">Mark as Pending</a>
+									<a href="{{ route('task.done', $task) }}" class="btn btn-success btn-sm">Done</a>
+									<a href="{{ route('task.pending', $task) }}" class="btn btn-warning btn-sm">Pending</a>
 									@endif
 									<a href="{{ route('task.edit', $task) }}" class="btn btn-warning btn-sm">Edit</a>
-									<a href="" class="btn btn-danger btn-sm">Delete</a>
+									{{-- <a href="{{ route('task.destroy', $task) }}" class="btn btn-primary btn-sm">Delete</a> --}}
+									<form action="{{ route('task.destroy', $task) }}" method="post" class="d-inline">
+										@csrf
+										@method('delete')
+										<button type="submit" class="btn btn-danger btn-sm">Delete</button>
+									</form>
 								</td>
 							</tr>
 							@endforeach
