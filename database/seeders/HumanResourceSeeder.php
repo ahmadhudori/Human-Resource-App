@@ -42,7 +42,7 @@ class HumanResourceSeeder extends Seeder
 
 		DB::table('roles')->insert([
 			[
-				'title' => 'HR',
+				'title' => 'Human Resource',
 				'description' => 'Handling team',
 				'created_at' => Carbon::now(),	
 				'updated_at' => Carbon::now(),
@@ -84,7 +84,7 @@ class HumanResourceSeeder extends Seeder
 				'address' => $faker->address,
 				'birth_date' => $faker->dateTimeBetween('-40 years', '-20 years'),
 				'hire_date' => Carbon::now(),
-				'department_id' => 1,
+				'department_id' => 2,
 				'role_id' => 1,
 				'status' => 'active',
 				'salary' => $faker->randomFloat(2, 3000, 6000),
@@ -107,7 +107,7 @@ class HumanResourceSeeder extends Seeder
 			[
 				'title' => $faker->sentence(3),
 				'description' => $faker->paragraph,
-				'assigned_to' => 1,
+				'assigned_to' => 2,
 				'due_date' => Carbon::parse('2025-02-15'),
 				'status' => 'pending',
 				'created_at' => Carbon::now(),	
