@@ -23,6 +23,8 @@ Route::get('/task/{task:id}/done', [TaskController::class, 'done'])->name('task.
 Route::get('/task/{task:id}/onProgress', [TaskController::class, 'onProgress'])->name('task.onProgress');
 
 Route::resource('employee', EmployeeController::class);
+Route::get('/employee/{employee}/active', [EmployeeController::class, 'active'])->name('employee.active');
+Route::get('/employee/{employee}/inactive', [EmployeeController::class, 'inactive'])->name('employee.inactive');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

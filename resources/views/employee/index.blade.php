@@ -54,16 +54,16 @@
 						<tbody>
 							@foreach ($employees as $employee)
 							<tr>
-								<td>{{ $employee->fullname }}</td>
+								<td>{{ ucfirst($employee->fullname) }}</td>
 								<td>{{ $employee->birth_date }}</td>
 								<td>{{ $employee->department->name }}</td>
 								<td>{{ $employee->role->title }}</td>
-								<td>{{ $employee->salary }}</td>
+								<td>Rp.{{ number_format($employee->salary) }}</td>
 								<td>
 									@if($employee->status == 'active')
 										<span class="text-success">Active</span>
 									@else
-										<span class="text-warning">Inactive</span>
+										<span class="text-danger">Inactive</span>
 									@endif
 								</td>
 								<td>
@@ -74,26 +74,12 @@
 										@method('delete')
 										<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete {{ $employee->fullname }}?')">Delete</button>
 									</form>
-								</td>
-								{{-- <td>
-									<a href="{{ route('employee.show', $employee) }}" class="btn btn-info btn-sm">View</a>
-									@if ($employee->status == 'pending')
-									<a href="{{ route('employee.onProgress', $employee) }}" class="btn btn-primary btn-sm">On Progress</a>
-									<a href="{{ route('employee.done', $employee) }}" class="btn btn-success btn-sm">Done</a>
-									@elseif ($employee->status == 'done')
-									<a href="{{ route('employee.pending', $employee) }}" class="btn btn-warning btn-sm">Pending</a>
-									<a href="{{ route('employee.onProgress', $employee) }}" class="btn btn-primary btn-sm">On Progress</a>
+									@if ($employee->status == 'active')
+										<a href="{{ route('employee.inactive', $employee) }}" class="btn btn-sm btn-danger">Inactive</a>
 									@else
-									<a href="{{ route('employee.done', $employee) }}" class="btn btn-success btn-sm">Done</a>
-									<a href="{{ route('employee.pending', $employee) }}" class="btn btn-warning btn-sm">Pending</a>
+										<a href="{{ route('employee.active', $employee) }}" class="btn btn-sm btn-success">Active</a>
 									@endif
-									<a href="{{ route('employee.edit', $employee) }}" class="btn btn-warning btn-sm">Edit</a> --}}
-									{{-- <form action="{{ route('employee.destroy', $employee) }}" method="post" class="d-inline">
-										@csrf
-										@method('delete')
-										<button type="submit" class="btn btn-danger btn-sm">Delete</button>
-									</form>
-								</td> --}}
+								</td>
 							</tr>
 							@endforeach
 						</tbody>
