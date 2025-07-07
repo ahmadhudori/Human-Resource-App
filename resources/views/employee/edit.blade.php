@@ -37,7 +37,7 @@
 					{{-- Fullname --}}
 					<div class="mb-2">
 						<label for="fullname" class="form-label">fullname</label>
-						<input type="text" class="form-control @error('fullname') is-invalid @enderror" value="{{ old('fullname', $employee->fullname) }}" name="fullname" id="fullname" required>
+						<input type="text" class="form-control @error('fullname') is-invalid @enderror" value="{{ old('fullname', $employee->fullname) }}" name="fullname" id="fullname" >
 						@error('fullname')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
@@ -46,7 +46,7 @@
 					{{-- Email --}}
 					<div class="mb-2">
 						<label for="email" class="form-label">Email</label>
-						<input type="email" name="email" value="{{ old('email', $employee->email) }}" class="form-control @error('email') is-invalid @enderror" id="email" required>
+						<input type="email" name="email" value="{{ old('email', $employee->email) }}" class="form-control @error('email') is-invalid @enderror" id="email" >
 						@error('email')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
@@ -55,7 +55,7 @@
 					{{-- phone number --}}
 					<div class="mb-2">
 						<label for="phone_number" class="form-label">Phone Number</label>
-						<input type="tel" value="{{ old('phone_number', $employee->phone_number) }}" class="form-control @error('phone_number') is-invalid @enderror " name="phone_number" id="phone_number" required>
+						<input type="tel" value="{{ old('phone_number', $employee->phone_number) }}" class="form-control @error('phone_number') is-invalid @enderror " name="phone_number" id="phone_number" >
 						@error('phone_number')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
@@ -64,7 +64,7 @@
 					{{-- address --}}
 					<div class="mb-2">
 						<label for="address" class="form-label">Address</label>
-						<textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" required>{{ old('address', $employee->address) }}</textarea>
+						<textarea class="form-control @error('address') is-invalid @enderror" name="address" id="address" >{{ old('address', $employee->address) }}</textarea>
 						@error('address')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
@@ -73,7 +73,7 @@
 					{{-- Birthdate --}}
 					<div class="mb-2">
 						<label for="birth_date" class="form-label">Birth Date</label>
-						<input type="date" name="birth_date" value="{{ old('birth_date', $employee->birth_date) }}" class="form-control date" id="birth_date" required>
+						<input type="date" name="birth_date" value="{{ old('birth_date', $employee->birth_date) }}" class="form-control date" id="birth_date" >
 						@error('birth_date')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
@@ -82,7 +82,7 @@
 					{{-- Hire date --}}
 					<div class="mb-2">
 						<label for="hire_date" class="form-label">Hire Date</label>
-						<input type="date" name="hire_date" value="{{ old('hire_date', $employee->hire_date) }}" class="form-control date" id="hire_date" required>
+						<input type="date" name="hire_date" value="{{ old('hire_date', $employee->hire_date) }}" class="form-control date" id="hire_date" >
 						@error('hire_date')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
@@ -91,7 +91,7 @@
 					{{-- department --}}
 					<div class="mb-2">
 						<label for="department_id" class="form-label">Department</label>
-						<select name="department_id" class="form-control" id="department_id" required>
+						<select name="department_id" class="form-control" id="department_id" >
 							<option value="">--Select Department--</option>
 							@foreach ($departments as $department)
 								<option value="{{ old('department_id', $department->id) }}" @if ($department->id == old('department_id', $employee->department_id)) selected @endif>{{ $department->name }}</option>
@@ -105,7 +105,7 @@
 					{{-- role --}}
 					<div class="mb-2">
 						<label for="role_id" class="form-label">role</label>
-						<select name="role_id" class="form-control" id="role_id" required>
+						<select name="role_id" class="form-control" id="role_id" >
 							<option value="">--Select Role--</option>
 							@foreach ($roles as $role)
 								<option value="{{ old('role_id', $role->id) }}" @if ($role->id == old('role_id', $employee->role_id)) selected @endif>{{ $role->title }}</option>
@@ -119,7 +119,7 @@
 					{{-- Status --}}
 					<div class="mb-2">
 						<label for="status" class="form-label">Status</label>
-						<select name="status" class="form-control @error('status') is-invalid @enderror" id="status" required>
+						<select name="status" class="form-control @error('status') is-invalid @enderror" id="status" >
 							<option value="">--Select Status--</option>
 							<option value="active" @if ($employee->status == 'active') selected @endif>Active</option>
 							<option value="inactive"  @if ($employee->status == 'inactive') selected @endif>Inactive</option>
@@ -132,7 +132,7 @@
 					{{-- Salary --}}
 					<div class="mb-2">
 						<label for="salary" class="form-label">Salary</label>
-						<input type="number" value="{{ old('salary', $employee->salary) }}" class="form-control @error('salary') is-invalid @enderror " name="salary" id="salary" required>
+						<input type="number" value="{{ old('salary', $employee->salary) }}" class="form-control @error('salary') is-invalid @enderror " name="salary" id="salary" >
 						@error('salary')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror

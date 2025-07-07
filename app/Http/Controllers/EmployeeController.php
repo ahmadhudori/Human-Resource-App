@@ -35,6 +35,8 @@ class EmployeeController extends Controller
 			'role_id' => 'required',
 			'status' => 'required|string',
 			'salary' => 'required|numeric'
+		], [
+			'phone_number.regex' => 'Phone number must be in the format 08XXXXXXXXX'
 		]);
 
 		Employee::create($request->all());
@@ -67,11 +69,19 @@ class EmployeeController extends Controller
 			'role_id' => 'required',
 			'status' => 'required|string',
 			'salary' => 'required|numeric'
+		], [
+			'phone_number.regex' => 'Phone number must be in the format 08XXXXXXXXX'
 		]);
 
 		$employee->update($request->all());
 
 		return redirect()->route('employee.index')->with('success', 'Employee updated successfully');
+	}
+
+	public function destroy(Employee $employee)
+	{
+		$employee->delete();
+		return redirect()->route('employee.index')->with('success', 'Employee deleted successfully');
 	}
 
 	public function active(Employee $employee)
