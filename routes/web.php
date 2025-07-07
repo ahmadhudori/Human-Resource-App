@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
@@ -38,6 +39,11 @@ Route::get('/department/{department}/inactive', [DepartmentController::class, 'i
 // Handel Role
 Route::resource('role', RoleController::class);
 
+// Handel Presence
+Route::resource('presence', PresenceController::class);
+Route::get('/presence/{presence}/present', [PresenceController::class, 'present'])->name('presence.present');
+Route::get('/presence/{presence}/leave', [PresenceController::class, 'leave'])->name('presence.leave');
+Route::get('/presence/{presence}/absent', [PresenceController::class, 'absent'])->name('presence.absent');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

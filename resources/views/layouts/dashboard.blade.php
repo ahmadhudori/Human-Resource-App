@@ -53,7 +53,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script>
 		let datetime = flatpickr('.date', {
-			dateFormat: "Y-m-d",
+			dateFormat: "Y-m-d H:i",
+			enableTime: true
 		})
 	</script>
 

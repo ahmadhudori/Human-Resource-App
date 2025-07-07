@@ -57,7 +57,7 @@
 								<td>{{ ucfirst($employee->fullname) }}</td>
 								<td>{{ $employee->birth_date }}</td>
 								<td>{{ $employee->department->name }}</td>
-								<td>{{ $employee->role->title }}</td>
+								<td>{{ $employee->role->title ?? 'Role not found' }}</td>
 								<td>Rp.{{ number_format($employee->salary) }}</td>
 								<td>
 									@if($employee->status == 'active')
