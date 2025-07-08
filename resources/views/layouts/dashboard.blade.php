@@ -52,10 +52,14 @@
 	{{-- flatpickr Date --}}
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	<script>
-		let datetime = flatpickr('.date', {
+		let datetime = flatpickr('.datetime', {
 			dateFormat: "Y-m-d H:i",
 			enableTime: true
-		})
+		});
+
+		let date = flatpickr('.date', {
+			dateFormat: "Y-m-d",
+		});
 	</script>
 	@yield('script')
 

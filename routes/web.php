@@ -56,3 +56,6 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+// Print Slip Payroll pdf
+Route::get('/payroll/{payroll}/print', [PayrollController::class, 'print'])->name('payroll.print');

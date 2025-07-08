@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Payroll;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
 class PayrollController extends Controller
@@ -49,5 +50,45 @@ class PayrollController extends Controller
 		// 	'pay_date' => $request->pay_date
 		// ])->save();
 		return redirect()->route('payroll.index')->with('success', 'Payroll created successfully');
+	}
+
+	public function edit(Payroll $payroll)
+	{
+		$employees = Employee::all();
+		return view('payroll.edit', compact('payroll', 'employees'));
+	}
+
+	public function update(Request $request, Payroll $payroll)
+	{
+		// dd($request->all());
+		// validation
+		$request->validate([
+			'employee_id' => 'required',
+			'salary' => 'required|numeric',
+			'bonuses' => 'required|numeric',
+			'deductions' => 'required|numeric',
+			'net_salary' => 'required|numeric',
+			'pay_date' => 'required|date'
+		]);
+
+		$payroll->update($request->all());
+		return redirect()->route('payroll.index')->with('success', 'Payroll updated successfully');
+	}
+
+	public function show(Payroll $payroll)
+	{
+		return view('payroll.show', compact('payroll'));
+	}
+
+	public function destroy(Payroll $payroll)
+	{
+		$payroll->delete();
+		return redirect()->route('payroll.index')->with('success', 'Payroll deleted successfully');
+	}
+
+	public function print(Payroll $payroll)
+	{
+		$pdf = Pdf::loadView('payroll.print', compact('payroll'))->setPaper('a4', 'landscape');
+		return $pdf->stream('payroll.pdf');
 	}
 }

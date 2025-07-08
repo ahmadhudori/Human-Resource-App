@@ -48,7 +48,7 @@
 					{{-- Check In --}}
 					<div class="mb-2">
 						<label for="check_in" class="form-label">Check In</label>
-						<input type="datetime-local" name="check_in" value="{{ old('check_in', $presence->check_in) }}" class="form-control date @error('check_in') is-invalid @enderror" id="check_in">
+						<input type="datetime-local" name="check_in" value="{{ old('check_in', $presence->check_in) }}" class="form-control datetime @error('check_in') is-invalid @enderror" id="check_in">
 						@error('check_in')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
@@ -57,7 +57,7 @@
 					{{-- Check out --}}
 					<div class="mb-2">
 						<label for="check_out" class="form-label">Check out</label>
-						<input type="datetime-local" name="check_out" value="{{ old('check_out', $presence->check_out) }}" class="form-control date @error('check_out') is-invalid @enderror" id="check_out">
+						<input type="datetime-local" name="check_out" value="{{ old('check_out', $presence->check_out) }}" class="form-control datetime @error('check_out') is-invalid @enderror" id="check_out">
 						@error('check_out')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror

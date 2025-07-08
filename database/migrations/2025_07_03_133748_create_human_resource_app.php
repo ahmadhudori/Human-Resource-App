@@ -53,7 +53,7 @@ return new class extends Migration
 			$table->string('title');
 			$table->text('description')->nullable();
 			$table->foreignId('assigned_to')->constrained('employees');
-			$table->date('due_date');
+			$table->datetime('due_date');
 			$table->string('status');
 			$table->timestamps();
 			$table->softDeletes();
