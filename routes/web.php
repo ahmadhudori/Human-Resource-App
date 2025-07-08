@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PresenceController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -44,6 +45,9 @@ Route::resource('presence', PresenceController::class);
 Route::get('/presence/{presence}/present', [PresenceController::class, 'present'])->name('presence.present');
 Route::get('/presence/{presence}/leave', [PresenceController::class, 'leave'])->name('presence.leave');
 Route::get('/presence/{presence}/absent', [PresenceController::class, 'absent'])->name('presence.absent');
+
+// Handel Payroll
+Route::resource('payroll', PayrollController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

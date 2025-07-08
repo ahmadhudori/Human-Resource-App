@@ -57,6 +57,7 @@
 			enableTime: true
 		})
 	</script>
+	@yield('script')
 
 </body>
 
