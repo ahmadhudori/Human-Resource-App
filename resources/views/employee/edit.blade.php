@@ -94,7 +94,7 @@
 						<select name="department_id" class="form-control" id="department_id" >
 							<option value="">--Select Department--</option>
 							@foreach ($departments as $department)
-								<option value="{{ old('department_id', $department->id) }}" @if ($department->id == old('department_id', $employee->department_id)) selected @endif>{{ $department->name }}</option>
+								<option value="{{ $department->id }}" @if ($department->id == old('department_id', $employee->department_id)) selected @endif>{{ $department->name }}</option>
 							@endforeach
 						</select>
 						@error('department_id')
@@ -108,7 +108,7 @@
 						<select name="role_id" class="form-control" id="role_id" >
 							<option value="">--Select Role--</option>
 							@foreach ($roles as $role)
-								<option value="{{ old('role_id', $role->id) }}" @if ($role->id == old('role_id', $employee->role_id)) selected @endif>{{ $role->title }}</option>
+								<option value="{{ $role->id }}" @if ($role->id == old('role_id', $employee->role_id)) selected @endif>{{ $role->title }}</option>
 							@endforeach
 						</select>
 						@error('role_id')

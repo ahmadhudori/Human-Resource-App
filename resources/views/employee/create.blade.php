@@ -90,7 +90,7 @@
 						<select name="department_id" class="form-control" id="department_id" required>
 							<option value="">--Select Department--</option>
 							@foreach ($departments as $department)
-								<option value="{{ $department->id }}">{{ $department->name }}</option>
+								<option value="{{ $department->id }}" @if(old('department_id') == $department->id) selected @endif>{{ $department->name }}</option>
 							@endforeach
 						</select>
 						@error('department_id')
@@ -104,7 +104,7 @@
 						<select name="role_id" class="form-control" id="role_id" required>
 							<option value="">--Select Role--</option>
 							@foreach ($roles as $role)
-								<option value="{{ $role->id }}">{{ $role->title }}</option>
+								<option value="{{ $role->id }}" @if(old('role_id') == $role->id) selected @endif>{{ $role->title }}</option>
 							@endforeach
 						</select>
 						@error('role_id')
@@ -117,8 +117,8 @@
 						<label for="status" class="form-label">Status</label>
 						<select name="status" class="form-control @error('status') is-invalid @enderror" id="status" required>
 							<option value="">--Select Status--</option>
-							<option value="active">Active</option>
-							<option value="inactive">Inactive</option>
+							<option value="active" @if(old('status') == 'active') selected @endif>Active</option>
+							<option value="inactive" @if(old('status') == 'inactive') selected @endif>Inactive</option>
 						</select>
 						@error('status')
 							<div class="invalid-feedback">{{ $message }}</div>

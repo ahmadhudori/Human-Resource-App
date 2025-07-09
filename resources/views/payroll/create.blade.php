@@ -36,7 +36,7 @@
 						<select name="employee_id" class="form-control @error('employee_id') is-invalid @enderror" id="employee_id">
 							<option value="">--Select Employee--</option>
 							@foreach ($employees as $employee)
-								<option value="{{ old('employee_id', $employee->id) }}">{{ ucfirst($employee->fullname) }}</option>
+								<option value="{{ $employee->id }}" @if(old('employee_id') == $employee->id) selected @endif>{{ ucfirst($employee->fullname) }}</option>
 							@endforeach
 						</select>
 						@error('employee_id')

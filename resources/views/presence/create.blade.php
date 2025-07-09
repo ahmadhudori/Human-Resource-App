@@ -36,7 +36,7 @@
 						<select name="employee_id" class="form-control @error('employee_id') is-invalid @enderror" id="employee_id">
 							<option value="">--Select Employee--</option>
 							@foreach ($employees as $employee)
-								<option value="{{ $employee->id }}">{{ ucfirst($employee->fullname) }}</option>
+								<option value="{{ $employee->id }}" @if(old('employee_id') == $employee->id) selected @endif>{{ ucfirst($employee->fullname) }}</option>
 							@endforeach
 						</select>
 						@error('employee_id')
@@ -76,9 +76,9 @@
 						<label for="status" class="form-label">Status</label>
 						<select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
 							<option value="">--Select Status--</option>
-							<option value="present">Present</option>
-							<option value="leave">Leave</option>
-							<option value="absent">Absent</option>
+							<option value="present" @if(old('status') == 'present') selected @endif>Present</option>
+							<option value="leave" @if(old('status') == 'leave') selected @endif>Leave</option>
+							<option value="absent" @if(old('status') == 'absent') selected @endif>Absent</option>
 						</select>
 						@error('status')
 							<div class="invalid-feedback">{{ $message }}</div>

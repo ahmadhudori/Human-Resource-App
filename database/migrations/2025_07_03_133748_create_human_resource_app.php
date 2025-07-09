@@ -91,7 +91,6 @@ return new class extends Migration
 			$table->string('leave_type');
 			$table->date('start_date');
 			$table->date('end_date');
-			$table->string('reason');
 			$table->string('status');
 			$table->timestamps();
 			$table->softDeletes();

@@ -53,8 +53,8 @@
 						<label for="status" class="form-label">Status</label>
 						<select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
 							<option value="">--Select Status--</option>
-							<option value="active">Active</option>
-							<option value="inactive">Inactive</option>
+							<option value="active" @if(old('status') == 'active') selected @endif>Active</option>
+							<option value="inactive" @if(old('status') == 'inactive') selected @endif>Inactive</option>
 						</select>
 						@error('status')
 							<div class="invalid-feedback">{{ $message }}</div>
