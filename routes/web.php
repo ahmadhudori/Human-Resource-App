@@ -20,40 +20,44 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware('auth')->group(function() {
 
-// Handel task
-Route::resource('task', TaskController::class);
-Route::get('/task/{task:id}/pending', [TaskController::class, 'pending'])->name('task.pending');
-Route::get('/task/{task:id}/done', [TaskController::class, 'done'])->name('task.done');
-Route::get('/task/{task:id}/onProgress', [TaskController::class, 'onProgress'])->name('task.onProgress');
+	Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('role:Human Resource,Developer,Sales')->name('dashboard');
 
-// Handel employee
-Route::resource('employee', EmployeeController::class);
-Route::get('/employee/{employee}/active', [EmployeeController::class, 'active'])->name('employee.active');
-Route::get('/employee/{employee}/inactive', [EmployeeController::class, 'inactive'])->name('employee.inactive');
+	// Handel task
+	Route::resource('task', TaskController::class)->middleware('role:Human Resource,Developer,Sales');
+	Route::get('/task/{task:id}/pending', [TaskController::class, 'pending'])->middleware('role:Human Resource,Developer,Sales')->name('task.pending');
+	Route::get('/task/{task:id}/done', [TaskController::class, 'done'])->middleware('role:Human Resource,Developer,Sales')->name('task.done');
+	Route::get('/task/{task:id}/onProgress', [TaskController::class, 'onProgress'])->middleware('role:Human Resource,Developer,Sales')->name('task.onProgress');
 
-// Handel department
-Route::resource('department', DepartmentController::class);
-Route::get('/department/{department}/active', [DepartmentController::class, 'active'])->name('department.active');
-Route::get('/department/{department}/inactive', [DepartmentController::class, 'inactive'])->name('department.inactive');
+	// Handel employee
+	Route::resource('employee', EmployeeController::class)->middleware('role:Human Resource');
+	Route::get('/employee/{employee}/active', [EmployeeController::class, 'active'])->middleware('role:Human Resource')->name('employee.active');
+	Route::get('/employee/{employee}/inactive', [EmployeeController::class, 'inactive'])->middleware('role:Human Resource')->name('employee.inactive');
 
-// Handel Role
-Route::resource('role', RoleController::class);
+	// Handel department
+	Route::resource('department', DepartmentController::class)->middleware('role:Human Resource');
+	Route::get('/department/{department}/active', [DepartmentController::class, 'active'])->middleware('role:Human Resource')->name('department.active');
+	Route::get('/department/{department}/inactive', [DepartmentController::class, 'inactive'])->middleware('role:Human Resource')->name('department.inactive');
 
-// Handel Presence
-Route::resource('presence', PresenceController::class);
-Route::get('/presence/{presence}/present', [PresenceController::class, 'present'])->name('presence.present');
-Route::get('/presence/{presence}/leave', [PresenceController::class, 'leave'])->name('presence.leave');
-Route::get('/presence/{presence}/absent', [PresenceController::class, 'absent'])->name('presence.absent');
+	// Handel Role
+	Route::resource('role', RoleController::class)->middleware('role:Human Resource');
 
-// Handel Payroll
-Route::resource('payroll', PayrollController::class);
+	// Handel Presence
+	Route::resource('presence', PresenceController::class)->middleware('role:Human Resource,Developer,Sales');
+	Route::get('/presence/{presence}/present', [PresenceController::class, 'present'])->middleware('role:Human Resource,Developer,Sales')->name('presence.present');
+	Route::get('/presence/{presence}/leave', [PresenceController::class, 'leave'])->middleware('role:Human Resource,Developer,Sales')->name('presence.leave');
+	Route::get('/presence/{presence}/absent', [PresenceController::class, 'absent'])->middleware('role:Human Resource,Developer,Sales')->name('presence.absent');
 
-// Handel Leave Request
-Route::resource('leave-request', LeaveRequestController::class);
-Route::get('/leave-request/{leaveRequest}/approved', [LeaveRequestController::class, 'approved'])->name('leaveRequest.approved');
-Route::get('/leave-request/{leaveRequest}/rejected', [LeaveRequestController::class, 'rejected'])->name('leaveRequest.rejected');
+	// Handel Payroll
+	Route::resource('payroll', PayrollController::class)->middleware('role:Human Resource,Developer,Sales');
+
+	// Handel Leave Request
+	Route::resource('leave-request', LeaveRequestController::class)->middleware('role:Human Resource,Developer,Sales');
+	Route::get('/leave-request/{leaveRequest}/approved', [LeaveRequestController::class, 'approved'])->middleware('role:Human Resource,Developer,Sales')->name('leaveRequest.approved');
+	Route::get('/leave-request/{leaveRequest}/rejected', [LeaveRequestController::class, 'rejected'])->middleware('role:Human Resource,Developer,Sales')->name('leaveRequest.rejected');
+
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

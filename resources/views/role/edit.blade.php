@@ -53,7 +53,7 @@
 					</div>
 
 					<button class="btn btn-primary" type="submit">Update Role</button>
-					<a href="{{ route('task.index') }}" class="btn btn-secondary">Back to list</a>
+					<a href="{{ route('role.index') }}" class="btn btn-secondary">Back to list</a>
 				</form>
 			</div>
 

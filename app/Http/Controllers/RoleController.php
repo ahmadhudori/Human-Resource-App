@@ -26,6 +26,10 @@ class RoleController extends Controller
 			'description' => 'nullable|string',
 		]);
 
+		$title = ucwords($request->title);
+
+		$request->merge(['title' => $title]);
+
 		Role::create($request->all());
 		return redirect()->route('role.index')->with('success', 'Role created successfully');
 	}
