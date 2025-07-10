@@ -49,7 +49,7 @@
 						<select name="assigned_to" class="form-control text-gray-600 @error('assigned_to') is-invalid @enderror" id="assigned_to">
 							<option value="">Select Employee</option>
 							@foreach ($employees as $employee)
-								<option value="{{ $employee->id }}" @if (old('assigned_to', $task->assigned_to) == $employee->id) selected @endif>{{ $employee->fullname }}</option>
+								<option value="{{ $employee->id }}" @if (old('assigned_to', $task->assigned_to) == $employee->id) selected @endif>{{ ucwords($employee->fullname) }}</option>
 							@endforeach
 						</select>
 						@error('assigned_to')
@@ -62,19 +62,6 @@
 						<label for="due_date" class="form-label">Due Date</label>
 						<input type="datetime-local" value="{{ old('due_date', $task->due_date) }}" class="form-control datetime @error('due_date') is-invalid @enderror" name="due_date" id="due_date" required>
 						@error('due_date')
-							<div class="invalid-feedback">{{ $message }}</div>
-						@enderror
-					</div>
-
-					{{-- Status --}}
-					<div class="mb-2">
-						<label for="status" class="form-label">Status</label>
-						<select name="status" class="form-control @error('status') is-invalid @enderror" id="status">
-							<option value="pending" @if (old('status', $task->status) == 'pending') selected @endif>Pending</option>
-							<option value="onProgress" @if (old('status', $task->status) == 'onProgress') selected @endif>On Progress</option>
-							<option value="done" @if (old('status', $task->status) == 'done') selected @endif>Done</option>
-						</select>
-						@error('status')
 							<div class="invalid-feedback">{{ $message }}</div>
 						@enderror
 					</div>

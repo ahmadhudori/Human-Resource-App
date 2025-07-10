@@ -33,9 +33,11 @@
 					</h5>
 				</div>
 				<div class="card-body">
-					<div class="d-flex mb-3">
-						<a href="{{ route('task.create') }}" class="btn btn-primary ms-auto">Add Task</a>
-					</div>
+					@if(session('role') == 'Human Resource')
+						<div class="d-flex mb-3">
+							<a href="{{ route('task.create') }}" class="btn btn-primary ms-auto">Add Task</a>
+						</div>
+					@endif
 					@if (session('success'))
 						<div class="alert alert-success">{{ session('success') }}</div>
 					@endif
@@ -53,7 +55,7 @@
 							@foreach ($tasks as $task)
 							<tr>
 								<td>{{ $task->title }}</td>
-								<td>{{ $task->employee->fullname }}</td>
+								<td>{{ ucwords($task->employee->fullname) }}</td>
 								<td>{{ $task->due_date }}</td>
 								<td>
 									@if($task->status == 'pending')
@@ -70,19 +72,19 @@
 									<a href="{{ route('task.onProgress', $task) }}" class="btn btn-primary btn-sm">On Progress</a>
 									<a href="{{ route('task.done', $task) }}" class="btn btn-success btn-sm">Done</a>
 									@elseif ($task->status == 'done')
-									<a href="{{ route('task.pending', $task) }}" class="btn btn-warning btn-sm">Pending</a>
 									<a href="{{ route('task.onProgress', $task) }}" class="btn btn-primary btn-sm">On Progress</a>
 									@else
 									<a href="{{ route('task.done', $task) }}" class="btn btn-success btn-sm">Done</a>
-									<a href="{{ route('task.pending', $task) }}" class="btn btn-warning btn-sm">Pending</a>
 									@endif
-									<a href="{{ route('task.edit', $task) }}" class="btn btn-warning btn-sm">Edit</a>
-									{{-- <a href="{{ route('task.destroy', $task) }}" class="btn btn-primary btn-sm">Delete</a> --}}
-									<form action="{{ route('task.destroy', $task) }}" method="post" class="d-inline">
-										@csrf
-										@method('delete')
-										<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this task?')">Delete</button>
-									</form>
+									@if(session('role') == 'Human Resource')
+										<a href="{{ route('task.edit', $task) }}" class="btn btn-warning btn-sm">Edit</a>
+										{{-- <a href="{{ route('task.destroy', $task) }}" class="btn btn-primary btn-sm">Delete</a> --}}
+										<form action="{{ route('task.destroy', $task) }}" method="post" class="d-inline">
+											@csrf
+											@method('delete')
+											<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this task?')">Delete</button>
+										</form>
+									@endif
 								</td>
 							</tr>
 							@endforeach

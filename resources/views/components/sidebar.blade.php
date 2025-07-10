@@ -2,7 +2,7 @@
 	<div class="sidebar-header position-relative">
 		<div class="d-flex justify-content-between align-items-center">
 			<div class="logo">
-				<a href="index.html"><img src="{{ asset('mazer/dist/assets/compiled/svg/logo.svg') }}" alt="Logo" srcset=""></a>
+				<a href="{{ route('dashboard') }}"><img src="{{ asset('mazer/dist/assets/compiled/svg/logo.svg') }}" alt="Logo" srcset=""></a>
 			</div>
 			<div class="theme-toggle d-flex gap-2  align-items-center mt-2">
 				<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true"
@@ -43,49 +43,49 @@
 			
 			@if(session('role') === 'Human Resource')
 			<li class="sidebar-item active ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('dashboard') }}" class='sidebar-link'>
 					<i class="bi bi-grid-fill"></i>
 					<span>Dashboard</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('task.index') }}" class='sidebar-link'>
 					<i class="bi bi-check-circle-fill"></i>
 					<span>Task</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('employee.index') }}" class='sidebar-link'>
 					<i class="bi bi-people-fill"></i>
 					<span>Employees</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('department.index') }}" class='sidebar-link'>
 					<i class="bi bi-briefcase"></i>
 					<span>Derpartments</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('role.index') }}" class='sidebar-link'>
 					<i class="bi bi-tag"></i>
 					<span>Roles</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('presence.index') }}" class='sidebar-link'>
 					<i class="bi bi-table"></i>
 					<span>Presences</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('payroll.index') }}" class='sidebar-link'>
 					<i class="bi bi-currency-dollar"></i>
 					<span>Payrolls</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('leave-request.index') }}" class='sidebar-link'>
 					<i class="bi bi-shift-fill"></i>
 					<span>Leave Request</span>
 				</a>
@@ -94,31 +94,31 @@
 
 			@if (in_array(session('role'), ['Developer', 'Sales']))
 			<li class="sidebar-item active ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('dashboard') }}" class='sidebar-link'>
 					<i class="bi bi-grid-fill"></i>
 					<span>Dashboard</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('task.index') }}" class='sidebar-link'>
 					<i class="bi bi-check-circle-fill"></i>
 					<span>Task</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('presence.index') }}" class='sidebar-link'>
 					<i class="bi bi-table"></i>
 					<span>Presences</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('payroll.index') }}" class='sidebar-link'>
 					<i class="bi bi-currency-dollar"></i>
 					<span>Payrolls</span>
 				</a>
 			</li>
 			<li class="sidebar-item ">
-				<a href="index.html" class='sidebar-link'>
+				<a href="{{ route('leave-request.index') }}" class='sidebar-link'>
 					<i class="bi bi-shift-fill"></i>
 					<span>Leave Request</span>
 				</a>

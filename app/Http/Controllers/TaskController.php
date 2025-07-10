@@ -12,7 +12,11 @@ class TaskController extends Controller
 {
     public function index()
 	{
-		$tasks = Task::all();
+		if(session('role') == 'Human Resource') {
+			$tasks = Task::all();
+		} else {
+			$tasks = Task::where('assigned_to', session('employee_id'))->get();
+		}
 		return view('task.index', compact('tasks'));	
 	}
 
@@ -29,8 +33,7 @@ class TaskController extends Controller
 			'title' => 'required|string|max:255',
 			'description' => 'nullable|string',
 			'assigned_to' => 'required',
-			'due_date' => 'required|date',
-			'status' => 'required|string'
+			'due_date' => 'required|date|after:now',
 		]);
 		
 		// $task = new Task();
@@ -39,6 +42,9 @@ class TaskController extends Controller
 		// $task->due_date = $request->due_date;
 		// $task->save();
 		// return redirect()->route('task.index');
+		$request->merge([
+			'status' => 'pending',
+		]);
 
 		Task::create($request->all());
 		return redirect()->route('task.index')->with('success', 'Task created successfully');
@@ -57,8 +63,7 @@ class TaskController extends Controller
 			'title' => 'required|string|max:255',
 			'description' => 'nullable|string',
 			'assigned_to' => 'required',
-			'due_date' => 'required|date',
-			'status' => 'required|string'
+			'due_date' => 'required|date|after:now',
 		]);
 		
 		$task->update($request->all());
@@ -80,13 +85,6 @@ class TaskController extends Controller
 	public function done(Task $task)
 	{
 		$task->status = 'done';
-		$task->save();
-		return redirect()->route('task.index')->with('success', 'Task marked as done');
-	}
-
-	public function pending(Task $task)
-	{
-		$task->status = 'pending';
 		$task->save();
 		return redirect()->route('task.index')->with('success', 'Task marked as done');
 	}
