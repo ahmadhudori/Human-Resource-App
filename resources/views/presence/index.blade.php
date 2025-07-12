@@ -33,9 +33,21 @@
 					</h5>
 				</div>
 				<div class="card-body">
-					<div class="d-flex mb-3">
-						<a href="{{ route('presence.create') }}" class="btn btn-primary ms-auto">Add Presence</a>
-					</div>
+					@php
+						$presenceToCheckout = $presences->first(function ($presence) {
+							return is_null($presence->check_out);
+						});
+						// dd($presenceToCheckout);
+					@endphp
+					@if($presenceToCheckout && in_array(session('role'), ['Developer', 'Sales']))
+						<div class="d-flex mb-3">
+							<a href="{{ route('presence.checkout', $presenceToCheckout) }}" class="btn btn-success ms-auto">Checkout</a>
+						</div>
+					@else
+						<div class="d-flex mb-3">
+							<a href="{{ route('presence.create') }}" class="btn btn-primary ms-auto">Add Presence</a>
+						</div>
+					@endif
 					@if (session('success'))
 						<div class="alert alert-success">{{ session('success') }}</div>
 					@endif
@@ -47,7 +59,9 @@
 								<th>Check Out</th>
 								<th>Date</th>
 								<th>Status</th>
-								<th>Option</th>
+								@if(session('role') == 'Human Resource')
+									<th>Option</th>
+								@endif
 							</tr>
 						</thead>
 						<tbody>
@@ -63,27 +77,18 @@
 									@elseif ($presence->status == 'leave')
 										<span class="text-primary">Leave</span>
 									@else
-										<span class="text-danger">absent</span>
+										<span class="text-danger">Absent</span>
 									@endif
 								</td>
 								<td>
-									@if ($presence->status == 'present')
-									<a href="{{ route('presence.leave', $presence) }}" class="btn btn-primary btn-sm">Leave</a>
-									<a href="{{ route('presence.absent', $presence) }}" class="btn btn-danger btn-sm">Absent</a>
-									@elseif ($presence->status == 'leave')
-									<a href="{{ route('presence.present', $presence) }}" class="btn btn-success btn-sm">Present</a>
-									<a href="{{ route('presence.absent', $presence) }}" class="btn btn-danger btn-sm">Absent</a>
-									@else
-									<a href="{{ route('presence.present', $presence) }}" class="btn btn-success btn-sm">Present</a>
-									<a href="{{ route('presence.leave', $presence) }}" class="btn btn-primary btn-sm">Leave</a>
+									@if (session('role') == 'Human Resource')
+										<a href="{{ route('presence.edit', $presence) }}" class="btn btn-warning btn-sm">Edit</a>
+										<form action="{{ route('presence.destroy', $presence) }}" method="post" class="d-inline">
+											@csrf
+											@method('delete')
+											<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this presence?')">Delete</button>
+										</form>
 									@endif
-									<a href="{{ route('presence.edit', $presence) }}" class="btn btn-warning btn-sm">Edit</a>
-									{{-- <a href="{{ route('presence.destroy', $presence) }}" class="btn btn-primary btn-sm">Delete</a> --}}
-									<form action="{{ route('presence.destroy', $presence) }}" method="post" class="d-inline">
-										@csrf
-										@method('delete')
-										<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Do you want to delete this presence?')">Delete</button>
-									</form>
 								</td>
 							</tr>
 							@endforeach

@@ -45,10 +45,9 @@ Route::middleware('auth')->group(function() {
 
 	// Handel Presence
 	Route::resource('presence', PresenceController::class)->middleware('role:Human Resource,Developer,Sales');
-	Route::get('/presence/{presence}/present', [PresenceController::class, 'present'])->middleware('role:Human Resource,Developer,Sales')->name('presence.present');
-	Route::get('/presence/{presence}/leave', [PresenceController::class, 'leave'])->middleware('role:Human Resource,Developer,Sales')->name('presence.leave');
-	Route::get('/presence/{presence}/absent', [PresenceController::class, 'absent'])->middleware('role:Human Resource,Developer,Sales')->name('presence.absent');
-
+	Route::get('/presence/{presence}/checkout', [PresenceController::class, 'checkout'])->middleware('role:Developer, Sales')->name('presence.checkout');
+	Route::put('/presence/{presence}/chekout', [PresenceController::class, 'checkoutProcess'])->middleware('role:Developer, Sales')->name('presence.checkoutProcess');
+	
 	// Handel Payroll
 	Route::resource('payroll', PayrollController::class)->middleware('role:Human Resource,Developer,Sales');
 

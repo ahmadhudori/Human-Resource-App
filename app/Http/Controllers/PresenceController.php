@@ -4,13 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Presence;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class PresenceController extends Controller
 {
     public function index()
 	{
-		$presences = Presence::all();
+		if(session('role') == 'Human Resource') {
+			$presences = Presence::all();
+		} else {
+			$presences = Presence::where('employee_id', session('employee_id'))->get();
+		}
 		return view('presence.index', compact('presences'));
 	}
 
@@ -22,16 +27,27 @@ class PresenceController extends Controller
 
 	public function store(Request $request, Presence $presence)
 	{
-		// validation
-		$request->validate([
-			"employee_id" => "required",
-			"check_in" => "required|date",
-			"check_out" => "required|date|after:check_in",
-			"date" => "required|date",
-			"status" => "required"
-		]);
+		if(session('role') == 'Human Resource') {
+			// validation
+			$request->validate([
+				"employee_id" => "required",
+				"check_in" => "required|date",
+				"check_out" => "required|date|after:check_in",
+				"date" => "required|date",
+				"status" => "required"
+			]);
 
-		$presence->create($request->all());
+			$presence->create($request->all());
+		} else {
+			$presence->create([
+				'employee_id' => session('employee_id'),
+				'check_in' => Carbon::now()->format('Y-m-d H:i:s'),
+				'latitude' => $request->latitude,
+				'longitude' => $request->longitude,
+				'date' => Carbon::now()->format('Y-m-d'),
+				'status' => 'present'
+			]);
+		}
 		return redirect()->route('presence.index')->with('success', 'Presence created successfully');
 	}
 
@@ -79,5 +95,20 @@ class PresenceController extends Controller
 		$presence->status = 'absent';
 		$presence->save();
 		return redirect()->route('presence.index')->with('success', 'Presence updated successfully');
+	}
+
+	public function checkout(Presence $presence)
+	{
+		return view('presence.checkout', compact('presence'));
+	}
+
+	public function checkoutProcess(Request $request, Presence $presence)
+	{
+		$presence->check_out = Carbon::now()->format('Y-m-d H:i:s');
+		$presence->latitude = $request->latitude;
+		$presence->longitude = $request->longitude;
+		$presence->date = Carbon::now()->format('Y-m-d');
+		$presence->save();
+		return redirect()->route('presence.index')->with('success', 'Presence checked out successfully');
 	}
 }

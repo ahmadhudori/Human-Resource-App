@@ -77,7 +77,7 @@ return new class extends Migration
 			$table->id();
 			$table->foreignId('employee_id')->constrained('employees');
 			$table->dateTime('check_in');
-			$table->dateTime('check_out');
+			$table->dateTime('check_out')->nullable();
 			$table->date('date');
 			$table->string('status');
 			$table->timestamps();
