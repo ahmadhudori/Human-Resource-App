@@ -34,7 +34,9 @@
 				</div>
 				<div class="card-body">
 					<div class="d-flex mb-3">
-						<a href="{{ route('payroll.create') }}" class="btn btn-primary ms-auto">Add Payroll</a>
+						@if(session('role') == 'Human Resource')
+							<a href="{{ route('payroll.create') }}" class="btn btn-primary ms-auto">Add Payroll</a>
+						@endif
 					</div>
 					@if (session('success'))
 						<div class="alert alert-success">{{ session('success') }}</div>
@@ -62,13 +64,14 @@
 								<td>{{ $payroll->pay_date }}</td>
 								<td>
 									<a href="{{ route('payroll.show', $payroll) }}" class="btn btn-info btn-sm">Detail Payroll</a>
-									<a href="{{ route('payroll.edit', $payroll) }}" class="btn btn-warning btn-sm">Edit</a>
-									{{-- <a href="{{ route('payroll.destroy', $payroll) }}" class="btn btn-primary btn-sm">Delete</a> --}}
-									<form action="{{ route('payroll.destroy', $payroll) }}" method="post" class="d-inline">
-										@csrf
-										@method('delete')
-										<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(`Do you want to delete this {{ $payroll->employee->fullname }}'s payroll?`)">Delete</button>
-									</form>
+									@if(session('role') == 'Human Resource')
+										<a href="{{ route('payroll.edit', $payroll) }}" class="btn btn-warning btn-sm">Edit</a>
+										<form action="{{ route('payroll.destroy', $payroll) }}" method="post" class="d-inline">
+											@csrf
+											@method('delete')
+											<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(`Do you want to delete this {{ $payroll->employee->fullname }}'s payroll?`)">Delete</button>
+										</form>
+									@endif
 								</td>
 							</tr>
 							@endforeach

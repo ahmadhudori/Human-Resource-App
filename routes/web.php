@@ -48,8 +48,15 @@ Route::middleware('auth')->group(function() {
 	Route::get('/presence/{presence}/checkout', [PresenceController::class, 'checkout'])->middleware('role:Developer, Sales')->name('presence.checkout');
 	Route::put('/presence/{presence}/chekout', [PresenceController::class, 'checkoutProcess'])->middleware('role:Developer, Sales')->name('presence.checkoutProcess');
 	
-	// Handel Payroll
-	Route::resource('payroll', PayrollController::class)->middleware('role:Human Resource,Developer,Sales');
+	// Handel Payroll memakai middleware di controller
+	Route::get('payroll', [PayrollController::class, 'index'])->middleware('role:Human Resource,Developer,Sales')->name('payroll.index');
+	Route::get('/payroll/create', [PayrollController::class, 'create'])->middleware('role:Human Resource')->name('payroll.create');
+	Route::post('/payroll/store', [PayrollController::class, 'store'])->middleware('role:Human Resource')->name('payroll.store');
+	Route::get('/payroll/{payroll}/edit', [PayrollController::class, 'edit'])->middleware('role:Human Resource')->name('payroll.edit');
+	Route::put('/payroll/{payroll}/update', [PayrollController::class, 'update'])->middleware('role:Human Resource')->name('payroll.update');
+	Route::delete('/payroll/{payroll}/destroy', [PayrollController::class, 'destroy'])->middleware('role:Human Resource')->name('payroll.destroy');
+	Route::get('/payroll/{payroll}/show', [PayrollController::class, 'show'])->middleware('role:Human Resource,Developer,Sales')->name('payroll.show');
+	Route::get('/payroll/{payroll}/print', [PayrollController::class, 'print'])->middleware('role:Human Resource,Developer,Sales')->name('payroll.print');
 
 	// Handel Leave Request
 	Route::resource('leave-request', LeaveRequestController::class)->middleware('role:Human Resource,Developer,Sales');

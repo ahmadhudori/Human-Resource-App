@@ -11,7 +11,11 @@ class PayrollController extends Controller
 {
     public function index()
 	{
-		$payrolls = Payroll::with('employee')->get();
+		if (session('role') == 'Human Resource') {
+			$payrolls = Payroll::with('employee')->get();
+		} else {
+			$payrolls = Payroll::where('employee_id', session('employee_id'))->with('employee')->get();
+		}
 		foreach ($payrolls as $payroll) {
 			$salary = $payroll->salary;
 			$bonuses = $payroll->bonuses;
