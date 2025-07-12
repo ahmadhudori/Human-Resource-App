@@ -10,29 +10,50 @@ class LeaveRequestController extends Controller
 {
     public function index()
 	{
-		$leaveRequests = LeaveRequest::with('employee')->get();
+		if(session('role') == 'Human Resource') {
+			$leaveRequests = LeaveRequest::with('employee')->get();
+		} else {
+			$leaveRequests = LeaveRequest::where('employee_id', session('employee_id'))->with('employee')->get();
+		}
 		return view('leave-request.index', compact('leaveRequests'));
 	}
 
 	public function create()
 	{
-		$employees = Employee::all();
-		return view('leave-request.create', compact('employees'));
+		if (session('role') == 'Human Resource') {
+			$employees = Employee::all();
+			return view('leave-request.create', compact('employees'));
+		} else {
+			$employee = Employee::find(session('employee_id'));
+			return view('leave-request.create', compact('employee'));
+		}
 	}
 
 	public function store(Request $request)
 	{
 		// validation
-		$request->validate([
+		if(session('role') == 'Human Resource') {
+			$request->validate([
 			'employee_id' => 'required',
 			'leave_type' => 'required',
 			'start_date' => 'required|date',
 			'end_date' => 'required|after:start_date',
-		]);
+			]);
+			$request->merge([
+				'status' => 'pending',
+			]);
+		} else {
+			$request->validate([
+			'leave_type' => 'required',
+			'start_date' => 'required|date',
+			'end_date' => 'required|after:start_date',
+			]);
+			$request->merge([
+				'employee_id' => session('employee_id'),
+				'status' => 'pending',
+			]);
+		}
 
-		$request->merge([
-			'status' => 'pending',
-		]);
 		LeaveRequest::create($request->all());
 		return redirect()->route('leave-request.index')->with('success', 'Leave request created successfully');
 	}

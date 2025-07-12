@@ -42,16 +42,21 @@
 					{{-- Employee --}}
 					<div class="mb-2">
 						<label for="employee_id" class="form-label">Employee</label>
-						<select name="employee_id" class="form-control @error('employee_id') is-invalid @enderror" id="employee_id">
-							<option value="">--Select Employee--</option>
-							@foreach ($employees as $employee)
-								<option value="{{  $employee->id }}" @if(old('employee_id') == $employee->id) selected @endif>{{ ucfirst($employee->fullname) }}</option>
-							@endforeach
-						</select>
-						@error('employee_id')
-							<div class="invalid-feedback">{{ $message }}</div>
-						@enderror
+						@if (session('role') == 'Human Resource')
+							<select name="employee_id" class="form-control @error('employee_id') is-invalid @enderror" id="employee_id">
+								<option value="">--Select Employee--</option>
+								@foreach ($employees as $employee)
+									<option value="{{  $employee->id }}" @if(old('employee_id') == $employee->id) selected @endif>{{ ucfirst($employee->fullname) }}</option>
+								@endforeach
+							</select>
+							@error('employee_id')
+								<div class="invalid-feedback">{{ $message }}</div>
+							@enderror
+						@else
+							<input type="text" name="employee_id" class="form-control" value="{{ $employee->fullname }}" disabled>
+						@endif
 					</div>
+					
 
 					{{-- Leave Type --}}
 					<div class="mb-2">

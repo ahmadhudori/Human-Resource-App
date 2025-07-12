@@ -59,10 +59,15 @@ Route::middleware('auth')->group(function() {
 	Route::get('/payroll/{payroll}/print', [PayrollController::class, 'print'])->middleware('role:Human Resource,Developer,Sales')->name('payroll.print');
 
 	// Handel Leave Request
-	Route::resource('leave-request', LeaveRequestController::class)->middleware('role:Human Resource,Developer,Sales');
-	Route::get('/leave-request/{leaveRequest}/approved', [LeaveRequestController::class, 'approved'])->middleware('role:Human Resource,Developer,Sales')->name('leaveRequest.approved');
-	Route::get('/leave-request/{leaveRequest}/rejected', [LeaveRequestController::class, 'rejected'])->middleware('role:Human Resource,Developer,Sales')->name('leaveRequest.rejected');
-
+	Route::get('/leave-request', [LeaveRequestController::class, 'index'])->middleware('role:Human Resource,Developer,Sales')->name('leave-request.index');
+	Route::get('/leave-request/create', [LeaveRequestController::class, 'create'])->middleware('role:Human Resource,Developer,Sales')->name('leave-request.create');
+	Route::post('/leave-request', [LeaveRequestController::class, 'store'])->middleware('role:Human Resource,Developer,Sales')->name('leave-request.store');
+	Route::get('/leave-request/{leaveRequest}/edit', [LeaveRequestController::class, 'edit'])->middleware('role:Human Resource')->name('leave-request.edit');
+	Route::put('/leave-request/{leaveRequest}', [LeaveRequestController::class, 'update'])->middleware('role:Human Resource')->name('leave-request.update');
+	Route::delete('/leave-request/{leaveRequest}/destroy', [LeaveRequestController::class, 'destroy'])->middleware('role:Human Resource')->name('leave-request.destroy');
+	Route::get('/leave-request/{leaveRequest}/approved', [LeaveRequestController::class, 'approved'])->middleware('role:Human Resource')->name('leaveRequest.approved');
+	Route::get('/leave-request/{leaveRequest}/rejected', [LeaveRequestController::class, 'rejected'])->middleware('role:Human Resource')->name('leaveRequest.rejected');
+	
 });
 
 Route::middleware('auth')->group(function () {
