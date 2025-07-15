@@ -42,50 +42,50 @@
 			<li class="sidebar-title">Menu</li>
 			
 			@if(session('role') === 'Human Resource')
-			<li class="sidebar-item active ">
+			<li class="sidebar-item @if(request()->is('/') || request()->is('dashboard')) active @endif ">
 				<a href="{{ route('dashboard') }}" class='sidebar-link'>
 					<i class="bi bi-grid-fill"></i>
 					<span>Dashboard</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
+			<li class="sidebar-item @if(request()->is('task')) active @endif ">
 				<a href="{{ route('task.index') }}" class='sidebar-link'>
 					<i class="bi bi-check-circle-fill"></i>
 					<span>Task</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
+			<li class="sidebar-item @if(request()->is('employee')) active @endif">
 				<a href="{{ route('employee.index') }}" class='sidebar-link'>
 					<i class="bi bi-people-fill"></i>
 					<span>Employees</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
+			<li class="sidebar-item  @if(request()->is('department')) active @endif">
 				<a href="{{ route('department.index') }}" class='sidebar-link'>
 					<i class="bi bi-briefcase"></i>
 					<span>Derpartments</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
+			<li class="sidebar-item  @if(request()->is('role')) active @endif">
 				<a href="{{ route('role.index') }}" class='sidebar-link'>
 					<i class="bi bi-tag"></i>
 					<span>Roles</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
-				<a href="{{ route('presence.index') }}" class='sidebar-link'>
+			<li class="sidebar-item @if(request()->is('presence')) active @endif">
+				<a href="{{ route('presence.index') }}" class='sidebar-link '>
 					<i class="bi bi-table"></i>
 					<span>Presences</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
-				<a href="{{ route('payroll.index') }}" class='sidebar-link'>
+			<li class="sidebar-item @if(request()->is('payroll')) active @endif">
+				<a href="{{ route('payroll.index') }}" class='sidebar-link '>
 					<i class="bi bi-currency-dollar"></i>
 					<span>Payrolls</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
-				<a href="{{ route('leave-request.index') }}" class='sidebar-link'>
+			<li class="sidebar-item @if(request()->is('leave-request')) active @endif">
+				<a href="{{ route('leave-request.index') }}" class='sidebar-link '>
 					<i class="bi bi-shift-fill"></i>
 					<span>Leave Request</span>
 				</a>
@@ -93,32 +93,32 @@
 			@endif
 
 			@if (in_array(session('role'), ['Developer', 'Sales']))
-			<li class="sidebar-item active ">
+			<li class="sidebar-item @if(request()->is('/') || request()->is('dashboard')) active @endif ">
 				<a href="{{ route('dashboard') }}" class='sidebar-link'>
 					<i class="bi bi-grid-fill"></i>
 					<span>Dashboard</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
+			<li class="sidebar-item  @if(request()->is('task')) active @endif">
 				<a href="{{ route('task.index') }}" class='sidebar-link'>
 					<i class="bi bi-check-circle-fill"></i>
 					<span>Task</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
-				<a href="{{ route('presence.index') }}" class='sidebar-link'>
+			<li class="sidebar-item @if(request()->is('presence')) active @endif">
+				<a href="{{ route('presence.index') }}" class='sidebar-link '>
 					<i class="bi bi-table"></i>
 					<span>Presences</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
-				<a href="{{ route('payroll.index') }}" class='sidebar-link'>
+			<li class="sidebar-item @if(request()->is('payroll')) active @endif">
+				<a href="{{ route('payroll.index') }}" class='sidebar-link '>
 					<i class="bi bi-currency-dollar"></i>
 					<span>Payrolls</span>
 				</a>
 			</li>
-			<li class="sidebar-item ">
-				<a href="{{ route('leave-request.index') }}" class='sidebar-link'>
+			<li class="sidebar-item @if(request()->is('leave-request')) active @endif">
+				<a href="{{ route('leave-request.index') }}" class='sidebar-link '>
 					<i class="bi bi-shift-fill"></i>
 					<span>Leave Request</span>
 				</a>

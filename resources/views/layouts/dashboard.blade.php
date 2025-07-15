@@ -12,6 +12,11 @@
   <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/app-dark.css') }}">
   <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/iconly.css') }}">
   <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/simple-datatables/style.css') }}">
+
+  {{-- drip icons --}}
+  <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/@icon/dripicons/dripicons.css') }}">
+  <link rel="stylesheet" href="{{ asset('mazer/dist/assets/compiled/css/ui-icons-dripicons.css') }}">
+
   <link rel="stylesheet" href="{{ asset('mazer/dist/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.css') }}">
 </head>
 
@@ -45,6 +50,9 @@
 	<script src="{{ asset('mazer/dist/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
 	<script src="{{ asset('mazer/dist/assets/static/js/pages/dashboard.js') }}"></script>
 
+	<!-- charts.js -->
+	<script src="{{ asset('mazer/dist/assets/extensions/chart.js/chart.umd.js') }}"></script>
+
 	{{-- untuk datatablea --}}
 	<script src="{{ asset('mazer/dist/assets/extensions/simple-datatables/umd/simple-datatables.js') }}"></script>
 	<script src="{{ asset('mazer/dist/assets/static/js/pages/simple-datatables.js') }}"></script>
@@ -60,6 +68,42 @@
 		let date = flatpickr('.date', {
 			dateFormat: "Y-m-d",
 		});
+
+		var ctxBar = document.getElementById('presence').getContext('2d');
+		var myChart = new Chart(ctxBar, {
+			type: 'bar',
+			data: {
+				labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets: [{
+					label: 'Total',
+					data: [],
+					backgroundColor: 'rgba(63, 82, 221, 1)',
+					borderColor: '#57CAEB',
+				}],
+			},
+			options: {
+				responsive: true,
+				title: {
+					display: true,
+					text: 'Latest Presence'
+				},
+				scales: {
+					y: {
+						beginAtZero: true
+					}
+				}
+				}
+			})
+		function updateChart() {
+			fetch('/dashboard/presence')
+			.then(response => response.json())
+			.then(output => {
+				myChart.data.datasets[0].data = output; // langsung update array
+				myChart.update();
+				})
+		}
+
+		updateChart();
 	</script>
 	@yield('script')
 

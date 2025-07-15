@@ -36,12 +36,6 @@ class TaskController extends Controller
 			'due_date' => 'required|date|after:now',
 		]);
 		
-		// $task = new Task();
-		// $task->title = $request->title;
-		// $task->assigned_to = $request->assigned_to;
-		// $task->due_date = $request->due_date;
-		// $task->save();
-		// return redirect()->route('task.index');
 		$request->merge([
 			'status' => 'pending',
 		]);

@@ -11,9 +11,8 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TaskController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+
 
 // from laravel breeze
 // Route::get('/dashboard', function () {
@@ -21,9 +20,10 @@ Route::get('/', function () {
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function() {
-
+	Route::get('/', [DashboardController::class, 'index'])->middleware('role:Human Resource,Developer,Sales');
 	Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('role:Human Resource,Developer,Sales')->name('dashboard');
-
+	Route::get('/dashboard/presence', [DashboardController::class, 'presence']);
+	
 	// Handel task
 	Route::resource('task', TaskController::class)->middleware('role:Human Resource,Developer,Sales');
 	Route::get('/task/{task:id}/pending', [TaskController::class, 'pending'])->middleware('role:Human Resource,Developer,Sales')->name('task.pending');
